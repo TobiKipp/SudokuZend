@@ -43,3 +43,6 @@ Now http://sudoku.localhost/rest/sudoku9?config=1234 returns:
 Now it is time to integrate the models, which were already converted to PHP in my pure PHP attempt.
 For some reason the pure php implementation behaves slightly different from the zend version. In the pure
 version all was defaulted to empty string, while in zend it shows null.
+
+When using namespaces the constructor must be __construct.
+

@@ -28,6 +28,16 @@ return array(
                      ),
                  ),
              ),
+             'handleSudoku9' => array(
+                 'type' => 'segment',
+                 'options' => array(
+                     'route' => '/handle/sudoku9',
+                     'defaults' => array(
+                         'controller' => 'Sudoku\Controller\Sudoku',
+                         'action'     => 'handleSudoku9',
+                     ),
+                 ),
+             ),
 
          ),
      ),
