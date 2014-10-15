@@ -1,77 +1,45 @@
-ZendSkeletonApplication
-=======================
 
-Introduction
-------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+Sudoku with Zend Framework
+==========================
 
-Installation
-------------
+This is a pure transfer from the java version to php. A pure php version had issues with the mapping
+being the directory structure.  It starts by using the example application with the album. 
+This way I can always look up how things where written there.
 
-Using Composer (recommended)
-----------------------------
-The recommended way to get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+Sudoku Module
+---------------------
 
-    curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
+#Add the module#
 
-Alternately, clone the repository and manually invoke `composer` using the shipped
-`composer.phar`:
+To get things work the root config/application.config.php needs to have to module added.
 
-    cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
-    cd ZendSkeletonApplication
-    php composer.phar self-update
-    php composer.phar install
 
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
+#Adding the routes#
 
-Another alternative for downloading the project is to grab it via `curl`, and
-then pass it to `tar`:
+I will start with a single Controller. The Sudoku modules config/module.config.php contains the 
+references to Controllers and the routes.
 
-    cd my/project/dir
-    curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
+To get JSON responses I looked up some code, but instead of setBody the method is now called
+setContent:
 
-You would then invoke `composer` to install dependencies per the previous
-example.
+    public function sudoku9Action(){
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
 
-Using Git submodules
---------------------
-Alternatively, you can install using native git submodules:
+        $response->setContent(json_encode(array(1=>2)));
+        return $response;
+    }
 
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
+The call to the mapped url will respond with {"1":2}.
 
-Web Server Setup
-----------------
+As next step the passed get parameters shall be added to this array.
+Here a missing parameter causes issues. As I did not find a premade soultion in an appropriate ammount
+of time I decided to make my own default handling. 
 
-### PHP CLI Server
+Now http://sudoku.localhost/rest/sudoku9?config=1234 returns:
 
-The simplest way to get started if you are using PHP 5.4 or above is to start the internal PHP cli-server in the root directory:
+    {"config":"1234","operation":""}
 
-    php -S 0.0.0.0:8080 -t public/ public/index.php
-
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
-
-**Note: ** The built-in CLI server is *for development only*.
-
-### Apache Setup
-
-To setup apache, setup a virtual host to point to the public/ directory of the
-project and you should be ready to go! It should look something like below:
-
-    <VirtualHost *:80>
-        ServerName zf2-tutorial.localhost
-        DocumentRoot /path/to/zf2-tutorial/public
-        SetEnv APPLICATION_ENV "development"
-        <Directory /path/to/zf2-tutorial/public>
-            DirectoryIndex index.php
-            AllowOverride All
-            Order allow,deny
-            Allow from all
-        </Directory>
-    </VirtualHost>
+Now it is time to integrate the models, which were already converted to PHP in my pure PHP attempt.
+For some reason the pure php implementation behaves slightly different from the zend version. In the pure
+version all was defaulted to empty string, while in zend it shows null.
