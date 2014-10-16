@@ -42,7 +42,7 @@ class SudokuCell{
      */
     function update(){
         if (count($this->possibleValues) == 1 && $this->value == ""){
-            $this->value = $this->possibleValues[0];
+            $this->value = array_values($this->possibleValues)[0];
         }
     }
 
