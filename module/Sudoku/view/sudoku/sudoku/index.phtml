@@ -1,46 +1,46 @@
-    <h1>Sudoku Solver</h1>
-    <form name="sudokufield" action="handle/sudoku9" method="get">
-        <div class="sudokuField">
-        <?php
-        for ($y = 0; $y <=8; $y++){
-            $yclass = "";
-            if ($y%3 == 2){
-                $yclass = "cell-ymod3is2";
+<h1>Sudoku Solver</h1>
+<form name="sudokufield" action="handle/sudoku9" method="get">
+    <div class="sudokuField">
+    <?php
+    for ($y = 0; $y <=8; $y++){
+        $yclass = "";
+        if ($y%3 == 2){
+            $yclass = "cell-ymod3is2";
+        }
+        elseif ($y == 0){
+            $yclass = "cell-istop";
+        }
+        echo '<div class="vertical">';
+        for($x = 0; $x <=8; $x++){
+            $xclass = "";
+            if ($x%3 == 2){
+                $xclass = "cell-xmod3is2";
             }
-            elseif ($y == 0){
-                $yclass = "cell-istop";
+            elseif ($x == 0){
+                $xclass = "cell-isleft";
             }
-            echo '<div class="vertical">';
-            for($x = 0; $x <=8; $x++){
-                $xclass = "";
-                if ($x%3 == 2){
-                    $xclass = "cell-xmod3is2";
-                }
-                elseif ($x == 0){
-                    $xclass = "cell-isleft";
-                }
-                echo '<div class="horizontal">'."\n";
-                echo '    <div class="' . $xclass . ' ' . $yclass . '">'."\n";
-                echo '        <input type="text" class="sudokucell"';
-                echo ' maxlength="1" name="y' . $y . 'x' . $x . '" value="'.$field[$y][$x].'">'."\n";
-                echo '    </div>'."\n";
-                echo '</div>'."\n";
-            }
+            echo '<div class="horizontal">'."\n";
+            echo '    <div class="' . $xclass . ' ' . $yclass . '">'."\n";
+            echo '        <input type="text" class="sudokucell"';
+            echo ' maxlength="1" name="y' . $y . 'x' . $x . '" value="'.$field[$y][$x].'">'."\n";
+            echo '    </div>'."\n";
             echo '</div>'."\n";
         }
-        ?>
-        </div>
-        <input type="submit" name="operation" value="store">
-        <input type="submit" name="operation" value="solve">
-        <input type="submit" name="operation" value="clear">
-    </form>
-    <p>
-        Store will redirect to a new page that can be bookmarked.
-    </p>
-    <p>
-        Solve will redirect to a new page that will take some time to load, due to solving the sudoku as 
-        far as possible with the small set of rules. Currently the one value left in cell rule and a clustering
-        strategy is used.
-    </p>
+        echo '</div>'."\n";
+    }
+    ?>
+    </div>
+    <input type="submit" name="operation" value="store">
+    <input type="submit" name="operation" value="solve">
+    <input type="submit" name="operation" value="clear">
+</form>
+<p>
+    Store will redirect to a new page that can be bookmarked.
+</p>
+<p>
+    Solve will redirect to a new page that will take some time to load, due to solving the sudoku as 
+    far as possible with the small set of rules. Currently the one value left in cell rule and a clustering
+    strategy is used.
+</p>
     
 

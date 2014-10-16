@@ -30,6 +30,31 @@ class SudokuController extends AbstractActionController
          return $view;
     }
 
+    public function samuraisudokuAction(){
+        $sm = $this->getEvent()->getApplication()->getServiceManager();
+        $helper = $sm->get('viewhelpermanager')->get('headLink');
+        $userAgent = $_SERVER["HTTP_USER_AGENT"];
+        if(strlen(stristr($userAgent, "chrome")) != 0){
+            $helper->prependStylesheet('/css/samuraisudoku-chrome.css');
+        }
+        else{
+            $helper->prependStylesheet('/css/samuraisudoku.css');
+        }
+
+        $renderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
+        $renderer->headTitle("Sudoku 9x9");
+         $config = @$_GET["config"];
+         if($config == null) $config = "";
+         $operation = @$_GET["operation"];
+         if($operation == null) $operation = "";
+         $sudoku9 = new Sudoku9($config, $operation); 
+         $view =  new ViewModel(array(
+            'field' => $sudoku9->getField(),
+             )
+         );
+         return $view;
+    }
+
     public function getParams(){
         $defaultValues = array("config" => "", "operation" => "");
         $params = array();
@@ -41,7 +66,7 @@ class SudokuController extends AbstractActionController
         return $params;
     }
 
-    public function sudoku9Action(){
+    public function sudoku9restAction(){
         $response = $this->getResponse();
         $response->setStatusCode(200);
         $params = $this->getParams();
@@ -50,7 +75,7 @@ class SudokuController extends AbstractActionController
         return $response;
     }
 
-    public function samuraisudokuAction(){
+    public function samuraisudokurestAction(){
         $response = $this->getResponse();
         $response->setStatusCode(200);
         $params = $this->getParams();

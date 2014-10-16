@@ -18,13 +18,23 @@ return array(
                      ),
                  ),
              ),
+             'samuraisudoku' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/samuraisudoku',
+                     'defaults' => array(
+                         'controller' => 'Sudoku\Controller\Sudoku',
+                         'action'     => 'samuraisudoku',
+                     ),
+                 ),
+             ),
              'sudoku9rest' => array(
                  'type' => 'segment',
                  'options' => array(
                      'route' => '/rest/sudoku9',
                      'defaults' => array(
                          'controller' => 'Sudoku\Controller\Sudoku',
-                         'action'     => 'sudoku9',
+                         'action'     => 'sudoku9rest',
                      ),
                  ),
              ),
@@ -34,7 +44,7 @@ return array(
                      'route' => '/rest/samuraisudoku',
                      'defaults' => array(
                          'controller' => 'Sudoku\Controller\Sudoku',
-                         'action'     => 'samuraisudoku',
+                         'action'     => 'samuraisudokurest',
                      ),
                  ),
              ),

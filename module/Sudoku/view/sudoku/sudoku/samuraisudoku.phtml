@@ -1,0 +1,70 @@
+<h1>Samurai Sudoku Solver</h1>
+<form name="sudokufield" action="handle/samuraisudoku" method="get">
+<div class="sudokuField">
+    <?php 
+    for($y = 0; $y < 22; $y++){
+        echo '<!-- row '.$y.'-->'."\n";
+        echo '    <div class="vertical">'."\n";
+        if($y%3 == 0){
+        echo '        <div class="vertical">'."\n";
+            for($x = 0; $x < 21; $x++){
+                $hiddenclass = "";
+                if( ($x >= 9 && $x <= 11 && $y <= 5)||
+                    ($x >= 9 && $x <= 11 && $y >= 16)){
+                    $hiddenclass = "hidden";
+                }
+                if( $x%3==0 ){
+        echo '            <div class="horizontal separatorYX"></div>'."\n";
+                }
+                if($x != 21){
+        echo '            <div class="horizontal separatorY '.$hiddenclass.'"></div>'."\n";
+                }
+            }
+        echo '        </div>'."\n";
+        }
+        //echo '        <div class="horizontal">'."\n";
+        for($x = 0; $x < 22; $x++){
+            $hiddenx = "";
+            if($y >= 9 && $y <= 11 && ($x <= 5 ||  $x >= 16)){
+                $hiddenx = "hidden";
+            }
+            if($x%3==0 && $y != 21){
+        echo '        <div class="horizontal separatorX '.$hiddenx.'">';
+        echo '</div>'."\n";
+            }
+            if($x != 21 && $y != 21){
+                if(
+                ($x >= 9 && $x <= 11 && $y >= 0 && $y <= 5)||
+                ($x >= 0 && $x <= 5 && $y >= 9 && $y <= 11)||
+                ($x >= 15 && $x <= 20 && $y >= 9 && $y <= 11)||
+                ($x >= 9 && $x <= 11 && $y >= 15 && $y <= 20)){
+        echo '        <div class="horizontal hidden">'."\n";
+        echo '            <input type="text" class="sudokucell hidden" maxlength="1" name="y'.$y.'x'.$x.'">'."\n";
+        echo '        </div>'."\n";
+                }
+                else{
+        echo '        <div class="horizontal">'."\n";
+                    $val = @$field[$y][$x];
+                    $val = "";
+                    $input = '    <input type="text" class="sudokucell" value="'.$val.'"';
+                    $input .=' maxlength="1" name="y'.$y.'x'.$x.'">'."\n";
+        echo '           '. $input;
+        echo '        </div>'."\n";
+                }
+            }
+        }
+        echo '    </div>'."\n";
+    }
+    ?>
+    </div>
+    <input type="submit" name="store" value="store">
+    <input type="submit" name="solve" value="solve">
+    <input type="submit" name="clear" value="clear">
+</form>
+<p>
+    Store will redirect to a new page that can be bookmarked.
+</p>
+<p>
+    Solve will redirect to a new page that will take some time to load, due to solving the sudoku as 
+    far as possible with the small set of rules.
+</p>

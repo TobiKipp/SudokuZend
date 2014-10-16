@@ -1,14 +1,4 @@
 
-.test{
-color:red;
-}
-html, body {
-  height: 100%;
-  width: 100%;
-  margin:0;
-  padding:0;
-  min-height: 100%; /* for firefox */
-}
 .sudokuField{
     width:1000px;
     height:700px;
@@ -34,13 +24,13 @@ html, body {
 }
 
 .separatorX{
-    height: 34px;
+    height: 30px;
     width: 4px;
     background: green;
 }
 .separatorY{
     height: 4px;
-    width: 34px;
+    width: 30px;
     background: magenta;
 }
 
@@ -53,4 +43,5 @@ html, body {
 .hidden{
     visibility:hidden;
     border-color:transparent;
+    display:block !important;
 }

@@ -84,8 +84,24 @@ The layout defined in the Module can be used.
 
 #Samurai Sudoku#
 
+##Rest Service##
 This time I will use the json api to fill the field values, instead of using the object directly.
 First the Java versions need to be translated.
 Here again the floor was needed to turn values to integers. I created a class Helper to use the arrayCopy 
 method defined in there.
+
+##The html page##
+
+To find out which browser is used one can make use of:
+
+    $_SERVER[‘HTTP_USER_AGENT’] 
+
+Browsers using Chrome behave different than Firefox like browsers for background and therefore have slightly
+different css files.
+
+There were some issues with the display. After setting up the output to properly generate identated html 
+and removing some errors it still did not show up correctly. I copied the generated code and then only imported
+the css for the sudoku. The layout worked fine then. So what css file is the issue?
+The issue is with bootstrap overwriting the default behaviour. After fixing the issues it solved the issue
+of different implementations for chrome and firefox like browsers.
 
