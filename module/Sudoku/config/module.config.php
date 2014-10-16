@@ -44,8 +44,12 @@ return array(
 
 
     'view_manager' => array(
+        'template_map' => array(
+            'Sudoku/layout'           => __DIR__ . '/../view/layout/sudokuLayout.phtml',
+        ),
         'template_path_stack' => array(
-            'album' => __DIR__ . '/../view',
+            __DIR__ . '/../view',
         ),
     ),
+
 );

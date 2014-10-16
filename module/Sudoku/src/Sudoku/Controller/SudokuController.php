@@ -11,15 +11,22 @@ class SudokuController extends AbstractActionController
 
     public function indexAction()
     {
+        $sm = $this->getEvent()->getApplication()->getServiceManager();
+        $helper = $sm->get('viewhelpermanager')->get('headLink');
+        $helper->prependStylesheet('/css/sudoku.css');
+
+        $renderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
+        $renderer->headTitle("Sudoku 9x9");
          $config = @$_GET["config"];
          if($config == null) $config = "";
          $operation = @$_GET["operation"];
          if($operation == null) $operation = "";
          $sudoku9 = new Sudoku9($config, $operation); 
-         return new ViewModel(array(
-             'field' => $sudoku9->getField(),
+         $view =  new ViewModel(array(
+            'field' => $sudoku9->getField(),
              )
          );
+         return $view;
     }
 
     public function sudoku9Action(){

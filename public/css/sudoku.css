@@ -1,13 +1,7 @@
 .test{
 color:red;
 }
-html, body {
-  height: 100%;
-  width: 100%;
-  margin:0;
-  padding:0;
-  min-height: 100%; /* for firefox */
-}
+
 .sudokuField{
     width:700px;
     height:520px;

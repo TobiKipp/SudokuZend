@@ -25,6 +25,13 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     {
         return include __DIR__ . '/config/module.config.php';
     }
+
+    public function init($mm)
+    {
+        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
+            $e->getTarget()->layout('Sudoku/layout');
+        });
+    }
    
 }
 

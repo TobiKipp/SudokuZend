@@ -44,5 +44,42 @@ Now it is time to integrate the models, which were already converted to PHP in m
 For some reason the pure php implementation behaves slightly different from the zend version. In the pure
 version all was defaulted to empty string, while in zend it shows null.
 
-When using namespaces the constructor must be __construct.
+When using namespaces the constructor must be \_\_construct.
+
+
+#Fixes# 
+
+The first issue was in the solver again with the array being a map. After using array\_values the index
+0 could be used again for a 1 element array. 
+
+The second issue is the bootstrap panel at the top having issues with the placement. This seems to have
+to do with the renderer using the basic template and adding the stuff in my phtml file on top of it.
+The issue was with one of my css rules. I removed it. In addition I changed the template to only contain
+the body. To inject the additional css style the following code can be used:
+
+        $sm = $this->getEvent()->getApplication()->getServiceManager();
+        $helper = $sm->get('viewhelpermanager')->get('headLink');
+        $helper->prependStylesheet('/css/sudoku.css');
+
+It still uses the title from the application module layout.
+By using lines
+
+Module.php:
+
+    public function init($mm)
+    {
+        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
+            $e->getTarget()->layout('Sudoku/layout');
+        });
+    }
+
+module.config.php:
+    
+    'view_manager' => array(
+        'template_map' => array(
+            'Sudoku/layout'           => __DIR__ . '/../view/layout/sudokuLayout.phtml',
+        ),
+
+The layout defined in the Module can be used.
+
 
