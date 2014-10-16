@@ -1,6 +1,7 @@
 <?php
 namespace Sudoku\Model;
-function arrayCopy( array $array ) {
+class Helper{
+    static function arrayCopy( array $array ) {
         $result = array();
         foreach( $array as $key => $val ) {
             if( is_array( $val ) ) {
@@ -12,5 +13,6 @@ function arrayCopy( array $array ) {
             }
         }
         return $result;
+    }
 }
 ?>

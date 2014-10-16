@@ -79,7 +79,7 @@ class SudokuGroupThread extends TimeoutThread{
     function generateAllNElementCombinations($n, $combination, $valuesLeft, &$allCombinations){
         if($n==1){
             foreach ($valuesLeft as $value){
-                 $finalCombination = arrayCopy($combination);
+                 $finalCombination = Helper::arrayCopy($combination);
                  $finalCombination[] = $value;
                  $allCombinations[] = $finalCombination;
             }
@@ -89,9 +89,9 @@ class SudokuGroupThread extends TimeoutThread{
             
             //The valuesLeftCopy will hagve the currently selected element removed in each loop, so it will
             //get smaller with each loop and prevent duplicated combinations.
-            $valuesLeftCopy = arrayCopy($valuesLeft);
+            $valuesLeftCopy = Helper::arrayCopy($valuesLeft);
             foreach ($valuesLeftWithoutLastN as $key => $value){
-                 $interCombination = arrayCopy($combination);
+                 $interCombination = Helper::arrayCopy($combination);
                  $interCombination[] = $value;
                  $valuesLeftCopy = array_values(array_diff($valuesLeftCopy, array($value)));
                  $this->generateAllNElementCombinations($n-1, $interCombination, $valuesLeftCopy, $allCombinations);

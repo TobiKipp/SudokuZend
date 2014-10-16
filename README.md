@@ -82,4 +82,10 @@ module.config.php:
 
 The layout defined in the Module can be used.
 
+#Samurai Sudoku#
+
+This time I will use the json api to fill the field values, instead of using the object directly.
+First the Java versions need to be translated.
+Here again the floor was needed to turn values to integers. I created a class Helper to use the arrayCopy 
+method defined in there.
 

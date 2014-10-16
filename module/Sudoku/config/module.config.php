@@ -28,6 +28,16 @@ return array(
                      ),
                  ),
              ),
+             'samuraisudokurest' => array(
+                 'type' => 'segment',
+                 'options' => array(
+                     'route' => '/rest/samuraisudoku',
+                     'defaults' => array(
+                         'controller' => 'Sudoku\Controller\Sudoku',
+                         'action'     => 'samuraisudoku',
+                     ),
+                 ),
+             ),
              'handleSudoku9' => array(
                  'type' => 'segment',
                  'options' => array(

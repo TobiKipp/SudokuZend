@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Sudoku\Model\Sudoku9;
+use Sudoku\Model\SamuraiSudoku;
 
 class SudokuController extends AbstractActionController
 {
@@ -29,10 +30,7 @@ class SudokuController extends AbstractActionController
          return $view;
     }
 
-    public function sudoku9Action(){
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-
+    public function getParams(){
         $defaultValues = array("config" => "", "operation" => "");
         $params = array();
         foreach($defaultValues as $param => $default){
@@ -40,9 +38,24 @@ class SudokuController extends AbstractActionController
             else $value = $default;
             $params[$param] = $value;
         }
-        $sudoku9 = new Sudoku9($params["config"], $params["operation"]);
+        return $params;
+    }
 
+    public function sudoku9Action(){
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $params = $this->getParams();
+        $sudoku9 = new Sudoku9($params["config"], $params["operation"]);
         $response->setContent(json_encode($sudoku9->getField())); 
+        return $response;
+    }
+
+    public function samuraisudokuAction(){
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $params = $this->getParams();
+        $samuraisudoku = new SamuraiSudoku($params["config"], $params["operation"]);
+        $response->setContent(json_encode($samuraisudoku->getField())); 
         return $response;
     }
 
