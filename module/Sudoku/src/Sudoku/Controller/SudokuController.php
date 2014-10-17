@@ -42,7 +42,7 @@ class SudokuController extends AbstractActionController
         }
 
         $renderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
-        $renderer->headTitle("Sudoku 9x9");
+        $renderer->headTitle("Samurai-Sudoku");
          $config = @$_GET["config"];
          if($config == null) $config = "";
          $operation = @$_GET["operation"];

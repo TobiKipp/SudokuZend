@@ -26,18 +26,18 @@
 .separatorX{
     height: 30px;
     width: 4px;
-    background: green;
+    background: black;
 }
 .separatorY{
     height: 4px;
     width: 30px;
-    background: magenta;
+    background: black;
 }
 
 .separatorYX{
     height: 4px;
     width: 4px;
-    background:yellow;
+    background:black;
 } 
 
 .hidden{
