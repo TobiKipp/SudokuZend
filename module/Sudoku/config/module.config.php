@@ -58,6 +58,16 @@ return array(
                      ),
                  ),
              ),
+             'handleSamuraiSudoku' => array(
+                 'type' => 'segment',
+                 'options' => array(
+                     'route' => '/handle/samuraisudoku',
+                     'defaults' => array(
+                         'controller' => 'Sudoku\Controller\Sudoku',
+                         'action'     => 'handleSamuraiSudoku',
+                     ),
+                 ),
+             ),
 
          ),
      ),

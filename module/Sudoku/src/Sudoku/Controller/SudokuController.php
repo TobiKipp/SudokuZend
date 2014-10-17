@@ -80,7 +80,7 @@ class SudokuController extends AbstractActionController
         $response->setStatusCode(200);
         $params = $this->getParams();
         $samuraisudoku = new SamuraiSudoku($params["config"], $params["operation"]);
-        $response->setContent(json_encode($samuraisudoku->getField())); 
+        $response->setContent(json_encode(array("field" => $samuraisudoku->getField()))); 
         return $response;
     }
 
@@ -114,6 +114,40 @@ class SudokuController extends AbstractActionController
         $this->redirect()->toUrl('/?config='.$config.'&operation='.$operation);
     }
 
+    function extractConfigSamuraiSudoku(){
+        $orderedValues = array();
+        foreach($_GET as $key => $value){
 
+           $splitKeyX = explode('x', $key);
+           $x = @$splitKeyX[1];
+           $y = @explode('y',$splitKeyX[0])[1];
+           if(is_numeric($x) && is_numeric($y)){
+               $orderedValues[$y][$x] = $value;
+           }
+
+        }
+        $config = "";
+        for ($y = 0; $y < 21; $y++){
+            for($x = 0; $x < 21; $x++){
+                if(!(($x >= 9 && $x <= 11 && ($y <= 5 || $y >=15))||
+                     ($y >= 9 && $y <= 11 && ($x <= 5 || $x >=15)))){ 
+                    $value = @$orderedValues[$y][$x];
+                    if($value == null) $value = "0";
+                    if($value == "" ) $value = "0";
+                    $config .= $value;
+                }
+            }
+        }
+        return $config;
+    }
+
+    public function handleSamuraiSudokuAction(){
+        $operation = $_GET["operation"];
+        $config = "";
+        if($operation != "clear"){
+            $config = $this->extractConfigSamuraiSudoku();
+        }
+        $this->redirect()->toUrl('/samuraisudoku?config='.$config.'&operation='.$operation);
+    }
    
 }

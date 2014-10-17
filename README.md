@@ -6,6 +6,12 @@ This is a pure transfer from the java version to php. A pure php version had iss
 being the directory structure.  It starts by using the example application with the album. 
 This way I can always look up how things where written there.
 
+In the course of the development I had issue with getting the Threads module running, due to disabled
+support in the distributions php version. As I do not want to deal with administration issues right now 
+I will not use threads in this version. I still use the Thread classes, but the method sequentializes
+the processing by calling in a fair way calling them in the order they were created in a loop.
+Due to not using sleep the whole process finishes faster.
+
 Sudoku Module
 ---------------------
 
@@ -103,5 +109,13 @@ There were some issues with the display. After setting up the output to properly
 and removing some errors it still did not show up correctly. I copied the generated code and then only imported
 the css for the sudoku. The layout worked fine then. So what css file is the issue?
 The issue is with bootstrap overwriting the default behaviour. After fixing the issues it solved the issue
-of different implementations for chrome and firefox like browsers.
+of different implementations for chrome and firefox like browsers. With this I no longer need two css 
+files but I will leave it as it is to keep it as a way to solve if issue occur again.
+
+Thanks to bootstrap setting many elemnt properties the values set in my css finally make sense.
+
+##Merging the rest service and the page##
+
+This time instead of using the Object directly I will call the rest service. It will still have to
+use the handle service to turn the form fields into the config variable.
 
